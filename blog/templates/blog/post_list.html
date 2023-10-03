@@ -1,26 +1,12 @@
-<!DOCTYPE html>
-
-<html>
-    <head>
-        <!--Things not displayed on screen-->
-        <title>Django Blog</title>
-    </head>
-    <body>
-        <!--container tags..they do not really do anything yet, but organize your website into sections-->
-        <header> <!--Title of webpage-->
-            <!--a or anchor tags link to something-->
-            <h1><a href="/">Django Girls Blog</a></h1> <!--heading tags that denote sections or titles of parts of webpage-->
-        </header>
-
-        <!--article container tag... this tag is used to usually describe articles or posts-->
-        <!--to run python code in html files.  Python code is denoted by {}.  data is { { }} functions or actions { % code % }-->
-        {% for post in posts %}
-            <article>
-                <time>published: {{post.published_date}}</time>
-                <h2><a href="">{{post.title}}</a></h2>
-                <p>{{post.text|linebreaksbr}}</p>
-            </article>
-        {% endfor %}
-
-    </body>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+    {% for post in posts %}
+        <article class="post">
+            <time class="date">
+                {{ post.published_date }}
+            </time>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+        </article>
+    {% endfor %}
+{% endblock %}
